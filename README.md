@@ -249,27 +249,14 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-
-Authentication schemes defined for the API:
-### hmac
-
-- **Type**: API key
-- **API key parameter name**: Authorization
-- **Location**: HTTP header
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: Authorization and passed in as the auth context for each request.
-
-Example
-
+For authentication you need to set the following environment variables with your credentials
+```bash
+export IONOS_S3_ACCESS_KEY="accesskey"
+export IONOS_S3_SECRET_KEY="secretkey"
+```
 ```golang
-auth := context.WithValue(
-		context.Background(),
-		sw.ContextAPIKeys,
-		map[string]sw.APIKey{
-			"Authorization": {Key: "API_KEY_STRING"},
-		},
-	)
-r, err := client.Service.Operation(auth, args)
+cfg := s3.NewConfigurationFromEnv()
+apiClient:=s3.NewApiClient(cfg)
 ```
 
 
